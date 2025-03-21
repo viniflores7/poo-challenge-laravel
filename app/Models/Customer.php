@@ -9,4 +9,9 @@ class Customer extends Model
 {
     /** @use HasFactory<\Database\Factories\CustomersFactory> */
     use HasFactory;
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
+    }
 }

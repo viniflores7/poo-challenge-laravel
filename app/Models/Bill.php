@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Charge;
 
 class Bill extends Model
 {
@@ -13,5 +14,15 @@ class Bill extends Model
     public function installment()
     {
         return $this->belongsTo(Installment::class);
+    }
+
+    public function charges()
+    {
+        return $this->hasMany(Charge::class);
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->charges->sum('price');
     }
 }

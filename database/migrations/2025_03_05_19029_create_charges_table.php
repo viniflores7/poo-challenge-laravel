@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('charges', function (Blueprint $table) {
             $table->id();
-            $table->string('chargeable_type');
-            $table->integer('chargeable_id');
+            $table->morphs('chargeable');
+            $table->decimal('price', 5, 2);
             $table->foreignId('bill_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

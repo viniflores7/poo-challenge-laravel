@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Charge;
 use App\Models\Installment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Bill>
  */
-class BillsFactory extends Factory
+class BillFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,8 +20,14 @@ class BillsFactory extends Factory
     {
         return [
             'installment_id' => Installment::factory(),
-            'total' => $this->faker->randomFloat(2, 10, 100),
-            'due_date' => $this->faker->dateTimeThisYear(),
+            'due_at' => now()->addMonth(),
         ];
+    }
+
+    public function withCharges($numCharges = 3)
+    {
+        return $this->has(
+            Charge::factory()->count($numCharges),
+        );
     }
 }

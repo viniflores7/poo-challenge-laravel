@@ -24,4 +24,9 @@ class Subscription extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+    public function installment()
+    {
+        return $this->hasOne(Installment::class);
+    }
 }

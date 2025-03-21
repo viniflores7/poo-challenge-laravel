@@ -14,4 +14,21 @@ class Package extends Model
     {
         return $this->belongsTo(Plan::class);
     }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'service_packages');
+    }
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
+    }
+
+    public function getPriceAttribute()
+    {
+        $servicesTotal = $this->services->sum('price');
+
+        return $this->plan->price + $servicesTotal;
+    }
 }
